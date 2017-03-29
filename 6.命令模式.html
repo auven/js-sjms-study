@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>命令模式</title>
+</head>
+<body>
+<script>
+    var lian = {};
+    lian.paobing = function (pao_num) {
+        alert(pao_num + '炮' + '开始战斗');
+    };
+    lian.bubing = function (bubing_num) {
+        alert(bubing_num + '人' + '开始战斗');
+    };
+    lian.lianzhang = function (mingling) {
+        lian[mingling.type](mingling.num);
+    };
+    //司令开始发布命令
+    lian.lianzhang({
+        type: 'paobing',
+        num: 100
+    });
+    lian.lianzhang({
+        type: 'bubing',
+        num: 500
+    });
+
+</script>
+</body>
+</html>

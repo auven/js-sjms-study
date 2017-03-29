@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>工厂模式</title>
+</head>
+<body>
+<script>
+    //1.工厂应该有厂长 来决定运行的是哪条产品线
+    /*
+    var gongchang = {};
+    gongchang.chanyifu = function (argument) {
+        this.gongren = 50;
+//        alert('我们有' + this.gongren);
+    };
+    gongchang.chanxie = function () {
+        alert('产鞋子~');
+    };
+    gongchang.yunshu = function () {
+        alert('运输');
+    };
+    gongchang.changzhang = function (para) {
+        // new js我们说了 构造函数模式 单例模式
+        return new gongchang[para]();
+    };
+    var me = gongchang.changzhang('chanyifu');
+    alert(me.gongren);
+    */
+//----------------------------------------
+    //这是一个简单的工厂模式
+    var XMLHttpFactory = function () {
+
+    };
+    XMLHttpFactory.createXMLHttp = function () {
+        var XMLHttp = null;
+        //XMLHttpFactory.createXMLHttp()这个方法是根据当前环境的具体情况返回一个XHP对象
+        if(window.XMLHttpRequest) {
+            XMLHttp = new XMLHttpRequest();
+        } else if(window.ActiveXObject) {
+            XMLHttp = new ActiveXObject('Microsoft.XMLHttp')
+        }
+        return XMLHttp;
+    };
+    var AjaxHander = function () {
+        var XMLHttp = XMLHttpFactory.createXMLHttp();
+    };
+
+//    -------------------------------------------------
+    //这是一个抽象工厂
+    var XMLHttpFactory = function () {
+
+    };
+    XMLHttpFactory.prototype = {
+        //如果真的要调用这个方法会抛出一个错误，它不能被实例化，只能用来派生子类
+        createFactory: function () {
+            throw new Error('This is an abstract class');
+        }
+    };
+    //派生子类
+    var XHRHandler = function () {
+        XMLHttpFactory.call(this);
+    };
+    XHRHandler.prototype = new XMLHttpFactory();
+    XHRHandler.prototype.constructor = XHRHandler;
+
+    //重新定义createFactory 方法
+    XHRHandler.prototype.createFactory = function () {
+        var XMLHttp = null;
+        if(window.XMLHttpRequest) {
+            XMLHttp = new XMLHttpRequest();
+        } else if(window.ActiveXObject) {
+            XMLHttp = new ActiveXObject('Microsoft.XMLHttp')
+        }
+        return XMLHttp;
+    }
+    var AjaxHander = function () {
+        var XMLHttp = XHRHandler.createFactory();
+    };
+</script>
+</body>
+</html>

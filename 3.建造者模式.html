@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>建造者模式</title>
+</head>
+<body>
+<script>
+    //1.发送一个请求 白富美
+    //2.$.ajax 建造者模式 包工头
+    //3.工人 完整模式
+    /*
+    $.ajax({
+        url: 'a.php',
+        success: function (argument) {
+
+        }
+    });
+    $('<a></a>') => jquery内部去找工人给我们实现
+    */
+
+    //1.产出的东西是房子
+    //2.baogongtou 调用工人进行开工 而且他要很清楚工人们具体的特长
+    //3.工人是盖房子的 工人可以建卧室 建客厅 建厨房
+    //4.包工头只是一个接口而已 不干活
+    function Fangzi() {
+        this.woshi = '';
+        this.keting = '';
+        this.chufang = '';
+    }
+
+    function Baogongtou() {
+        this.gaifangzi = function (gongren) {
+            gongren.jian_woshi();
+            gongren.jian_keting();
+            gongren.jian_chufang();
+        }
+    }
+
+    function Gongren() {
+        this.jian_woshi = function () {
+            console.log('卧室我盖好了');
+        };
+        this.jian_keting = function () {
+            console.log('客厅建好了');
+        };
+        this.jian_chufang = function () {
+            console.log('厨房建好了');
+        };
+        this.jiaogong = function () {
+            var _fangzi = new Fangzi();
+            _fangzi.woshi = "ok";
+            _fangzi.keting = "ok";
+            _fangzi.chufang = "ok";
+            return _fangzi;
+        }
+    }
+
+    var gongren = new Gongren();
+    var baogongtou = new Baogongtou();
+    baogongtou.gaifangzi(gongren);
+    //主人要房子
+    var myfangzi = gongren.jiaogong();
+    console.log(myfangzi);
+
+
+</script>
+</body>
+</html>

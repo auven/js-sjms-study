@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>代理模式</title>
+</head>
+<body>
+<script>
+    //代理模式需要3方
+    //1.买家
+    function maijia(argument) {
+        this.name = '小明';
+    }
+    //2.中介
+    function zhongjie() {
+
+    }
+    zhongjie.prototype.maifang = function () {
+        new fangdong(new maijia()).maifang('20')
+    };
+    //3.房东
+    function fangdong(maijia) {
+        this.maijia._name = maijia.name;
+        this.maifang = function (money) {
+            alert('收到了来自【' + this.maijia._name + '】' + money + '人名币');
+        }
+    }
+    (new zhongjie).maifang();
+
+</script>
+</body>
+</html>
